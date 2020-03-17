@@ -181,9 +181,11 @@ def get_request_count():
     if request.method == 'GET':
         cou1=mongo.db.abcd.find({},{"_id":0,"count":1})
         res = json.loads(dumps(cou1))
+        cou=-1
         for i in res:
             if (i):
                 cou=i["count"]
+        if cou==-1:return jsonify(0)
         res2 = jsonify(cou)
         return res2
     else:
@@ -199,11 +201,12 @@ def reset_request_count():
         for i in res:
             if (i):
                 cou=i["count"]
-        print("inside create ride",res,cou)
-        mongo.db.abcd.find_and_modify(query={"count":cou},update={"$set" : {"count":0}})
+        if cou==-1:mongo.db.abcd.insert_one({"count":0})
+        else:mongo.db.abcd.find_and_modify(query={"count":cou},update={"$set" : {"count":0}})
         return jsonify({}),201
     else:
         return jsonify({}), 405
+
 
 
 
