@@ -39,6 +39,7 @@ mongo = PyMongo(app)
 #         mongo.db.abcd.insert_one(req_data)
 #         return "Inserted"
 
+mongo.db.abcd.insert_one({"count":0})
 
 def validate_pswd(password):
     if len(password) != 40:
@@ -51,6 +52,13 @@ def validate_pswd(password):
 
 @app.route('/api/v1/users', methods=['PUT', 'POST', 'DELETE', 'HEAD'])
 def add_user():
+    cou1=mongo.db.abcd.find({},{"_id":0,"count":1})
+        res = json.loads(dumps(cou1))
+        for i in res:
+            if (i):
+                cou=i["count"]
+        print("inside create ride",res,cou)
+        mongo.db.abcd.find_and_modify(query={"count":cou},update={"$set" : {"count":cou+1}})
     if request.method == 'PUT':
         try:
             data = request.get_json()
@@ -99,6 +107,13 @@ def read_data1():
 
 @app.route('/api/v1/users/<username>', methods=['DELETE', 'GET', 'PUT', 'POST', 'HEAD'])
 def remove_user(username):
+    cou1=mongo.db.abcd.find({},{"_id":0,"count":1})
+        res = json.loads(dumps(cou1))
+        for i in res:
+            if (i):
+                cou=i["count"]
+        print("inside create ride",res,cou)
+        mongo.db.abcd.find_and_modify(query={"count":cou},update={"$set" : {"count":cou+1}})
     if request.method == 'DELETE':
         data = {"username": username}
         resp_send = requests.post(
@@ -130,6 +145,13 @@ def remove_user(username):
 @app.route('/api/v1/users', methods=['PUT', 'GET', 'DELETE', 'HEAD'])
 def list_all_users():
     print("hey")
+    cou1=mongo.db.abcd.find({},{"_id":0,"count":1})
+        res = json.loads(dumps(cou1))
+        for i in res:
+            if (i):
+                cou=i["count"]
+        print("inside create ride",res,cou)
+        mongo.db.abcd.find_and_modify(query={"count":cou},update={"$set" : {"count":cou+1}})
 
     if request.method == 'GET':
         data = {"userquery": 1}
@@ -156,7 +178,52 @@ def list_all_users():
         return res2
     else:
         return jsonify({}), 405
+    
+    
+@app.route('/api/v1/_count', methods=['PUT', 'GET', 'HEAD'])
+def get_request_count():
+    print("hey")
 
+    if request.method == 'GET':
+        cou1=mongo.db.abcd.find({},{"_id":0,"count":1})
+        res = json.loads(dumps(cou1))
+        for i in res:
+            if (i):
+                cou=i["count"]
+        res2 = jsonify(cou)
+        return res2
+    else:
+        return jsonify({}), 405
+
+@app.route('/api/v1/_count', methods=['PUT', 'GET', 'DELETE', 'HEAD'])
+def reset_request_count():
+    print("hey")
+
+    if request.method == 'DELETE':
+        cou1=mongo.db.abcd.find({},{"_id":0,"count":1})
+        res = json.loads(dumps(cou1))
+        for i in res:
+            if (i):
+                cou=i["count"]
+        print("inside create ride",res,cou)
+        mongo.db.abcd.find_and_modify(query={"count":cou},update={"$set" : {"count":0}})
+        return jsonify({}),201
+    else:
+        return jsonify({}), 405
+
+
+
+@app.route('/api/v1/showdbsown', methods=['PUT', 'GET', 'HEAD'])
+def get_all_entries():
+    print("hey")
+
+    if request.method == 'GET':
+        cou1=mongo.db.abcd.find()
+        res = json.loads(dumps(cou1))
+        res2 = jsonify(res)
+        return res2
+    else:
+        return jsonify({}), 405
 
 @app.route('/api/v1/db/write', methods=['POST', 'DELETE'])
 def write_data():
