@@ -40,7 +40,7 @@ mongo = PyMongo(app)
 #         return "Inserted"
 
 
-#mongo.db.abcd.insert_one({"count":0})
+mongo.db.abcd.insert_one({"count":0})
 
 
 def validate_pswd(password):
