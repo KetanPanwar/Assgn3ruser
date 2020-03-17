@@ -52,7 +52,7 @@ def validate_pswd(password):
 
 @app.route('/api/v1/users', methods=['PUT', 'POST', 'DELETE', 'HEAD'])
 def add_user():
-    cou1=mongo.db.abcd.find({},{"_id":0,"count":1})
+        cou1=mongo.db.abcd.find({},{"_id":0,"count":1})
         res = json.loads(dumps(cou1))
         for i in res:
             if (i):
