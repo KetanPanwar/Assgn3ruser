@@ -39,7 +39,9 @@ mongo = PyMongo(app)
 #         mongo.db.abcd.insert_one(req_data)
 #         return "Inserted"
 
+
 mongo.db.abcd.insert_one({"count":0})
+
 
 def validate_pswd(password):
     if len(password) != 40:
@@ -178,8 +180,8 @@ def list_all_users():
         return res2
     else:
         return jsonify({}), 405
-    
-    
+
+
 @app.route('/api/v1/_count', methods=['PUT', 'GET', 'HEAD'])
 def get_request_count():
     print("hey")
@@ -224,6 +226,7 @@ def get_all_entries():
         return res2
     else:
         return jsonify({}), 405
+
 
 @app.route('/api/v1/db/write', methods=['POST', 'DELETE'])
 def write_data():
