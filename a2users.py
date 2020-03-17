@@ -52,13 +52,13 @@ def validate_pswd(password):
 
 @app.route('/api/v1/users', methods=['PUT', 'POST', 'DELETE', 'HEAD'])
 def add_user():
-        cou1=mongo.db.abcd.find({},{"_id":0,"count":1})
-        res = json.loads(dumps(cou1))
-        for i in res:
-            if (i):
-                cou=i["count"]
-        print("inside create ride",res,cou)
-        mongo.db.abcd.find_and_modify(query={"count":cou},update={"$set" : {"count":cou+1}})
+    cou1=mongo.db.abcd.find({},{"_id":0,"count":1})
+    res = json.loads(dumps(cou1))
+    for i in res:
+        if (i):
+            cou=i["count"]
+    print("inside create ride",res,cou)
+    mongo.db.abcd.find_and_modify(query={"count":cou},update={"$set" : {"count":cou+1}})
     if request.method == 'PUT':
         try:
             data = request.get_json()
@@ -108,12 +108,12 @@ def read_data1():
 @app.route('/api/v1/users/<username>', methods=['DELETE', 'GET', 'PUT', 'POST', 'HEAD'])
 def remove_user(username):
     cou1=mongo.db.abcd.find({},{"_id":0,"count":1})
-        res = json.loads(dumps(cou1))
-        for i in res:
-            if (i):
-                cou=i["count"]
-        print("inside create ride",res,cou)
-        mongo.db.abcd.find_and_modify(query={"count":cou},update={"$set" : {"count":cou+1}})
+    res = json.loads(dumps(cou1))
+    for i in res:
+        if (i):
+            cou=i["count"]
+    print("inside create ride",res,cou)
+    mongo.db.abcd.find_and_modify(query={"count":cou},update={"$set" : {"count":cou+1}})
     if request.method == 'DELETE':
         data = {"username": username}
         resp_send = requests.post(
@@ -146,12 +146,12 @@ def remove_user(username):
 def list_all_users():
     print("hey")
     cou1=mongo.db.abcd.find({},{"_id":0,"count":1})
-        res = json.loads(dumps(cou1))
-        for i in res:
-            if (i):
-                cou=i["count"]
-        print("inside create ride",res,cou)
-        mongo.db.abcd.find_and_modify(query={"count":cou},update={"$set" : {"count":cou+1}})
+    res = json.loads(dumps(cou1))
+    for i in res:
+        if (i):
+            cou=i["count"]
+    print("inside create ride",res,cou)
+    mongo.db.abcd.find_and_modify(query={"count":cou},update={"$set" : {"count":cou+1}})
 
     if request.method == 'GET':
         data = {"userquery": 1}
