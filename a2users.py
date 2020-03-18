@@ -142,7 +142,7 @@ def remove_user(username):
 #         return s
 #         # return jsonify(par)
 #         # return "Deleted"
-@app.route('/api/v1/users', methods=['PUT', 'GET', 'DELETE', 'HEAD'])
+@app.route('/api/v1/users', methods=['GET', 'DELETE', 'HEAD'])
 def list_all_users():
     print("hey")
     coun()
