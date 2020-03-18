@@ -187,7 +187,7 @@ def get_request_count():
                 cou=i["count"]
         if cou==-1:return jsonify(0)
         res2 = jsonify(cou)
-        return res2
+        return res2 , 200
     else:
         return jsonify({}), 405
 
@@ -203,7 +203,7 @@ def reset_request_count():
                 cou=i["count"]
         if cou==-1:mongo.db.abcd.insert_one({"count":0})
         else:mongo.db.abcd.find_and_modify(query={"count":cou},update={"$set" : {"count":0}})
-        return jsonify({}),201
+        return jsonify({}),200
     else:
         return jsonify({}), 405
 
