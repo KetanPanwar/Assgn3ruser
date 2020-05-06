@@ -45,7 +45,7 @@ def coun():
 	data['op']='coun'
 	data['method']='post'
 	data['who']='users'
-	resp_send = requests.post("http://18.210.117.50:80/api/v1/db/write", json=data)
+	resp_send = requests.post("http://52.72.92.96:80/api/v1/db/write", json=data)
 	# cou1=mongo.db.abcd.find({},{"_id":0,"count":1})
 	# res = json.loads(dumps(cou1))
 	# cou=-1
@@ -81,7 +81,7 @@ def add_user():
 		key = list(data.keys())[0]
 		usr = {key: data[key]}
 		usr['who']='users'
-		resp_send = requests.post("http://18.210.117.50:80/api/v1/db/read", json=usr)
+		resp_send = requests.post("http://52.72.92.96:80/api/v1/db/read", json=usr)
 		if(resp_send.status_code == 400):
 			pattern = re.compile(r'\b[0-9a-f]{40}\b')
 			#match = re.match(pattern, data["password"])
@@ -92,7 +92,7 @@ def add_user():
 				data['query']='insert'
 				data['who']='users'
 				resp_send = requests.post(
-					"http://18.210.117.50:80/api/v1/db/write", json=data)
+					"http://52.72.92.96:80/api/v1/db/write", json=data)
 				return jsonify({}), 201
 			else:
 				print('else1')
@@ -114,7 +114,7 @@ def remove_user(username):
 		data = {"username": username}
 		data['who']='users'
 		resp_send = requests.post(
-			"http://18.210.117.50:80/api/v1/db/read", json=data)
+			"http://52.72.92.96:80/api/v1/db/read", json=data)
 		if(resp_send.status_code == 400):
 			return jsonify({}), 400
 		elif(resp_send.status_code == 200):
@@ -123,10 +123,10 @@ def remove_user(username):
 			data['who']='rides'
 			data['method']='delete'
 			resp_del = requests.delete(
-				"http://18.210.117.50:80/api/v1/db/write", json=data)
+				"http://52.72.92.96:80/api/v1/db/write", json=data)
 			data['who']='users'
 			resp_del = requests.delete(
-				"http://18.210.117.50:80/api/v1/db/write", json=data)
+				"http://52.72.92.96:80/api/v1/db/write", json=data)
 		return jsonify({}), 200
 	else:
 		return jsonify({}), 405
@@ -153,7 +153,7 @@ def list_all_users():
 		data = {"userquery": 1}
 		data['who']='users'
 		resp_send = requests.post(
-			"http://18.210.117.50:80/api/v1/db/read", json=data)
+			"http://52.72.92.96:80/api/v1/db/read", json=data)
 		s = dumps(resp_send.content)
 		print(s)
 		# print(s,resp_send.content)
@@ -189,7 +189,7 @@ def get_request_count():
 		data['who']='users'
 		data['readcou']=1
 		resp_send = requests.post(
-			"http://18.210.117.50:80/api/v1/db/read", json=data)
+			"http://52.72.92.96:80/api/v1/db/read", json=data)
 		res = json.loads(resp_send.content)
 		# res=json.loads(res)
 		return jsonify([res]), 200
@@ -216,7 +216,7 @@ def reset_request_count():
 		data['op']='reset'
 		data['method']='post'
 		data['who']='users'
-		resp_send = requests.post("http://18.210.117.50:80/api/v1/db/write", json=data)
+		resp_send = requests.post("http://52.72.92.96:80/api/v1/db/write", json=data)
 
 
 		# cou1=mongo.db.abcd.find({},{"_id":0,"count":1})
@@ -242,7 +242,7 @@ def get_all_entries():
 		data['who']='users'
 		data['entire']=1
 		resp_send = requests.post(
-			"http://18.210.117.50:80/api/v1/db/read", json=data)
+			"http://52.72.92.96:80/api/v1/db/read", json=data)
 		res = json.loads(resp_send.content)
 		res=json.loads(res)
 		return jsonify(res)
@@ -386,7 +386,7 @@ def clear_data():
 	data['op']='clear'
 	data['who']='users'
 	resp_send = requests.post(
-			"http://18.210.117.50:80/api/v1/db/clear", json=data)
+			"http://52.72.92.96:80/api/v1/db/clear", json=data)
 	return jsonify({}), 200
 
 
